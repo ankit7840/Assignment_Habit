@@ -11,20 +11,23 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.assignment_habit.Data.repository.FoodRepository
 import com.example.assignment_habit.ui.theme.Assignment_HabitTheme
+import com.example.assignment_habit.view.components.screens.HomeScreen
+import com.example.assignment_habit.viewModel.HomeViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+
+        val repository = FoodRepository(applicationContext)
+        val viewModel = HomeViewModel(repository)
+
         setContent {
             Assignment_HabitTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                HomeScreen(viewModel = viewModel)
             }
         }
     }

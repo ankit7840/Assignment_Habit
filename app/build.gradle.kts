@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+//    id("com.google.devtools.ksp") version "1.9.10-1.0.13" // Add KSP plugin - match with your Kotlin version
+
 }
 
 android {
@@ -56,4 +58,13 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // For JSON parsing
+
+    implementation("com.squareup.moshi:moshi:1.15.0")
+    implementation("com.squareup.moshi:moshi-kotlin:1.15.0") // Adds Kotlin support
+//    ksp("com.squareup.moshi:moshi-kotlin-codegen:1.14.0")
+
+// For image loading
+    implementation("io.coil-kt:coil-compose:2.4.0")
 }

@@ -1,0 +1,286 @@
+{
+  "triedTastedLoved": [
+    {
+      "id": "1",
+      "name": "Butter Chicken",
+      "description": "Creamy tomato sauce with tender chicken pieces",
+      "price": 249.0,
+      "image": "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?w=500"
+    },
+    {
+      "id": "2",
+      "name": "Margherita Pizza",
+      "description": "Classic pizza with tomato, mozzarella and basil",
+      "price": 199.0,
+      "image": "https://images.unsplash.com/photo-1604917877934-07d8d248d396?w=500"
+    },
+    {
+      "id": "3",
+      "name": "Chicken Biryani",
+      "description": "Fragrant rice dish with spiced chicken and herbs",
+      "price": 279.0,
+      "image": "https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=500"
+    },
+    {
+      "id": "4",
+      "name": "Tandoori Paneer",
+      "description": "Grilled cottage cheese marinated in yogurt and spices",
+      "price": 199.0,
+      "image": "https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=500"
+    },
+    {
+      "id": "5",
+      "name": "Chocolate Brownie",
+      "description": "Rich fudgy dessert with chocolate chips",
+      "price": 149.0,
+      "image": "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=500"
+    },
+    {
+      "id": "6",
+      "name": "Garlic Naan",
+      "description": "Soft bread with garlic flavor, baked in tandoor",
+      "price": 79.0,
+      "image": "https://images.unsplash.com/photo-1626074353765-517a681e40be?w=500"
+    },
+    {
+      "id": "7",
+      "name": "Palak Paneer",
+      "description": "Cottage cheese cubes in creamy spinach gravy",
+      "price": 220.0,
+      "image": "https://images.unsplash.com/photo-1596797038530-2c107229654b?w=500"
+    },
+    {
+      "id": "8",
+      "name": "Masala Dosa",
+      "description": "Crispy rice crepe filled with spiced potatoes",
+      "price": 180.0,
+      "image": "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=500"
+    },
+    {
+      "id": "9",
+      "name": "Chicken Burger",
+      "description": "Juicy chicken patty with lettuce, mayo and cheese",
+      "price": 159.0,
+      "image": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500"
+    },
+    {
+      "id": "10",
+      "name": "Tiramisu",
+      "description": "Coffee-flavored Italian dessert with layers of mascarpone",
+      "price": 189.0,
+      "image": "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=500"
+    },
+    {
+      "id": "11",
+      "name": "BBQ Chicken Wings",
+      "description": "Spicy wings tossed in smoky barbecue sauce",
+      "price": 230.0,
+      "image": "https://images.unsplash.com/photo-1608039755401-742074f0548d?w=500"
+    },
+    {
+      "id": "12",
+      "name": "Manchurian",
+      "description": "Deep-fried vegetable balls in sweet and spicy sauce",
+      "price": 175.0,
+      "image": "https://images.unsplash.com/photo-1567337710282-00832b415979?w=500"
+    },
+    {
+      "id": "13",
+      "name": "Penne Arrabiata",
+      "description": "Penne pasta in spicy tomato sauce with garlic and herbs",
+      "price": 195.0,
+      "image": "https://images.unsplash.com/photo-1608897013039-887f21d8c804?w=500"
+    },
+    {
+      "id": "14",
+      "name": "Gulab Jamun",
+      "description": "Deep-fried milk solids soaked in sugar syrup",
+      "price": 99.0,
+      "image": "https://images.unsplash.com/photo-1589308078059-be1415eab4c3?w=500"
+    },
+    {
+      "id": "15",
+      "name": "Fish and Chips",
+      "description": "Crispy battered fish fillets with french fries",
+      "price": 259.0,
+      "image": "https://images.unsplash.com/photo-1579208030886-b937da0925dc?w=500"
+    },
+    {
+      "id": "16",
+      "name": "Paneer Tikka",
+      "description": "Grilled paneer cubes marinated in spices",
+      "price": 210.0,
+      "image": "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=500"
+    },
+    {
+      "id": "17",
+      "name": "Veg Spring Rolls",
+      "description": "Crispy fried rolls with vegetable filling",
+      "price": 130.0,
+      "image": "https://images.unsplash.com/photo-1606851685679-64e4eed9afb1?w=500"
+    },
+    {
+      "id": "18",
+      "name": "Mushroom Risotto",
+      "description": "Creamy Italian rice dish with mushrooms",
+      "price": 240.0,
+      "image": "https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=500"
+    },
+    {
+      "id": "19",
+      "name": "Cheesecake",
+      "description": "Creamy dessert with graham cracker crust",
+      "price": 175.0,
+      "image": "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=500"
+    },
+    {
+      "id": "20",
+      "name": "Kung Pao Chicken",
+      "description": "Spicy stir-fried chicken with peanuts and vegetables",
+      "price": 230.0,
+      "image": "https://images.unsplash.com/photo-1525755662778-989d0524087e?w=500"
+    }
+  ],
+  "lookingForMore": [
+    {
+      "id": "21",
+      "name": "Hakka Noodles",
+      "description": "Stir-fried noodles with vegetables",
+      "price": 159.0,
+      "image": "https://images.unsplash.com/photo-1569058242567-93de6f36f8e6?w=500"
+    },
+    {
+      "id": "22",
+      "name": "Pad Thai",
+      "description": "Thai stir-fried rice noodles with egg, tofu, and peanuts",
+      "price": 229.0,
+      "image": "https://images.unsplash.com/photo-1559314809-0d155014e29e?w=500"
+    },
+    {
+      "id": "23",
+      "name": "Caesar Salad",
+      "description": "Fresh romaine lettuce with creamy dressing and croutons",
+      "price": 179.0,
+      "image": "https://images.unsplash.com/photo-1550304943-4f24f54ddde9?w=500"
+    },
+    {
+      "id": "24",
+      "name": "Vegetable Lasagna",
+      "description": "Layered pasta with mixed vegetables and cheese",
+      "price": 249.0,
+      "image": "https://images.unsplash.com/photo-1574894709920-11b28e7367e3?w=500"
+    },
+    {
+      "id": "25",
+      "name": "Sushi Platter",
+      "description": "Assorted fresh fish and rice rolls with wasabi",
+      "price": 399.0,
+      "image": "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=500"
+    },
+    {
+      "id": "26",
+      "name": "Falafel Wrap",
+      "description": "Chickpea patties with hummus and vegetables in pita bread",
+      "price": 190.0,
+      "image": "https://images.unsplash.com/photo-1644357731553-e9fd55be713d?w=500"
+    },
+    {
+      "id": "27",
+      "name": "Beef Stroganoff",
+      "description": "Sautéed beef in creamy mushroom sauce",
+      "price": 289.0,
+      "image": "https://images.unsplash.com/photo-1651743334464-dab3db4e6bc3?w=500"
+    },
+    {
+      "id": "28",
+      "name": "Seafood Paella",
+      "description": "Spanish rice dish with assorted seafood",
+      "price": 349.0,
+      "image": "https://images.unsplash.com/photo-1515443961218-a51367888e4b?w=500"
+    },
+    {
+      "id": "29",
+      "name": "Greek Salad",
+      "description": "Fresh vegetables with olives and feta cheese",
+      "price": 199.0,
+      "image": "https://images.unsplash.com/photo-1522336572468-97b06e8ef143?w=500"
+    },
+    {
+      "id": "30",
+      "name": "Ramen",
+      "description": "Japanese noodle soup with sliced pork and soft-boiled egg",
+      "price": 260.0,
+      "image": "https://images.unsplash.com/photo-1557872943-16a5ac26437e?w=500"
+    },
+    {
+      "id": "31",
+      "name": "Churros",
+      "description": "Spanish fried dough pastry with chocolate sauce",
+      "price": 150.0,
+      "image": "https://images.unsplash.com/photo-1624371414361-e670edf4898d?w=500"
+    },
+    {
+      "id": "32",
+      "name": "French Onion Soup",
+      "description": "Caramelized onion soup topped with cheese and bread",
+      "price": 180.0,
+      "image": "https://images.unsplash.com/photo-1583953163829-52e437fe6f49?w=500"
+    },
+    {
+      "id": "33",
+      "name": "Quinoa Bowl",
+      "description": "Nutritious bowl with quinoa, roasted vegetables and dressing",
+      "price": 220.0,
+      "image": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500"
+    },
+    {
+      "id": "34",
+      "name": "Eggs Benedict",
+      "description": "Poached eggs with hollandaise sauce on English muffin",
+      "price": 210.0,
+      "image": "https://images.unsplash.com/photo-1608039750772-220200507389?w=500"
+    },
+    {
+      "id": "35",
+      "name": "Beef Wellington",
+      "description": "Fillet steak coated with pâté and wrapped in pastry",
+      "price": 450.0,
+      "image": "https://images.unsplash.com/photo-1600891964092-4316c288032e?w=500"
+    },
+    {
+      "id": "36",
+      "name": "Pho",
+      "description": "Vietnamese noodle soup with herbs and beef",
+      "price": 230.0,
+      "image": "https://images.unsplash.com/photo-1618156060321-411801c603c3?w=500"
+    },
+    {
+      "id": "37",
+      "name": "Baklava",
+      "description": "Sweet pastry made of layers of filo with nuts and syrup",
+      "price": 130.0,
+      "image": "https://images.unsplash.com/photo-1519676867240-f03562e64548?w=500"
+    },
+    {
+      "id": "38",
+      "name": "Chicken Shawarma",
+      "description": "Middle Eastern wrap with marinated chicken and tahini",
+      "price": 210.0,
+      "image": "https://images.unsplash.com/photo-1527324688151-0e627063f2b1?w=500"
+    },
+    {
+      "id": "39",
+      "name": "Matcha Cake",
+      "description": "Green tea flavored cake with cream filling",
+      "price": 180.0,
+      "image": "https://images.unsplash.com/photo-1582798358481-d199fb7347bb?w=500"
+    },
+    {
+      "id": "40",
+      "name": "Tom Yum Soup",
+      "description": "Thai spicy and sour soup with shrimp and mushrooms",
+      "price": 220.0,
+      "image": "https://images.unsplash.com/photo-1569562211393-aaab58222eb0?w=500"
+    }
+  ]
+}
