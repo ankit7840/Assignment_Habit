@@ -69,13 +69,11 @@ fun TriedTastedLovedSection(
                 Text("No items available")
             }
         } else {
-            // Safe implementation with fixed height items
             LazyRow(
                 contentPadding = PaddingValues(horizontal = 8.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 items(foods) { food ->
-                    // Using SafeFoodCard
                     FoodCard(
                         food = food,
                         onAddClick = { onAddClick(food) },
@@ -128,13 +126,11 @@ fun LookingForMoreSection(
                 Text("No items available")
             }
         } else {
-            // Use LazyColumn with fixed height boundaries
             LazyColumn(
                 contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp),
                 modifier = Modifier
                     .fillMaxWidth()
-                    // Set a maximum height to prevent unbounded measurement issues
                     .height((foods.size * 240).coerceAtMost(720).dp)
             ) {
                 items(foods) { food ->

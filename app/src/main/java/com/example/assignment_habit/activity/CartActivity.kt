@@ -1,5 +1,4 @@
-
-package com.example.assignment_habit
+package com.example.assignment_habit.activity
 
 import android.os.Bundle
 import android.widget.Toast
@@ -36,7 +35,6 @@ import com.example.assignment_habit.Data.model.FoodItem
 import com.example.assignment_habit.ui.theme.Assignment_HabitTheme
 import com.example.assignment_habit.ui.theme.DarkRed
 import com.example.assignment_habit.ui.theme.PrimaryRed
-import kotlin.text.get
 
 class CartActivity : ComponentActivity() {
     @Suppress("DEPRECATION")

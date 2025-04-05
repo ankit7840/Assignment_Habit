@@ -1,4 +1,4 @@
-package com.example.assignment_habit
+package com.example.assignment_habit.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -27,7 +27,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             Assignment_HabitTheme {
-                val cartItems = viewModel.cartItems.collectAsState().value  // Fixed the delegate syntax
+                val cartItems = viewModel.cartItems.collectAsState().value
 
                 HomeScreen(viewModel = viewModel,
                     onCartIconClick = {
