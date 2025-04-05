@@ -1,14 +1,14 @@
 package com.example.assignment_habit
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
+
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.assignment_habit.Data.repository.FoodRepository
@@ -27,7 +27,15 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             Assignment_HabitTheme {
-                HomeScreen(viewModel = viewModel)
+                val cartItems = viewModel.cartItems.collectAsState().value  // Fixed the delegate syntax
+
+                HomeScreen(viewModel = viewModel,
+                    onCartIconClick = {
+                        val intent = Intent(this, CartActivity::class.java)
+                        intent.putExtra("cartItems", ArrayList(cartItems))
+                        startActivity(intent)
+                    }
+                    )
             }
         }
     }

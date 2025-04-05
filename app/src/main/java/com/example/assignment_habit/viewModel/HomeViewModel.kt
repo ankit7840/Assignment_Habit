@@ -18,6 +18,9 @@ class HomeViewModel(private val repository: FoodRepository) : ViewModel() {
     private val _cartItemCount = MutableStateFlow(0)
     val cartItemCount: StateFlow<Int> = _cartItemCount.asStateFlow()
 
+    private val _cartItems = MutableStateFlow<List<FoodItem>>(emptyList())
+    val cartItems: StateFlow<List<FoodItem>> = _cartItems.asStateFlow()
+
     init {
         loadFoodData()
     }
@@ -47,6 +50,7 @@ class HomeViewModel(private val repository: FoodRepository) : ViewModel() {
     }
 
     fun addToCart(item: FoodItem) {
+        _cartItems.update { currentItems -> currentItems + item }
         _cartItemCount.update { it + 1 }
     }
 }

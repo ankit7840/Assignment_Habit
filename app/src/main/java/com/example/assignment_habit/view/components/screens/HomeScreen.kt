@@ -1,5 +1,6 @@
 package com.example.assignment_habit.view.components.screens
 
+import android.content.Intent
 import androidx.compose.runtime.getValue
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -73,7 +74,9 @@ import androidx.compose.ui.zIndex
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(viewModel: HomeViewModel) {
+fun HomeScreen(viewModel: HomeViewModel,
+               onCartIconClick: () -> Unit
+) {
     val uiState by viewModel.uiState.collectAsState()
     val cartCount by viewModel.cartItemCount.collectAsState()
     val notificationCount = 2
@@ -125,7 +128,7 @@ fun HomeScreen(viewModel: HomeViewModel) {
                         icon = Icons.Default.ShoppingCart,
                         contentDescription = "Cart",
                         badgeCount = cartCount,
-                        onClick = { /* Shopping cart action */ }
+                        onClick = onCartIconClick
                     )
                 }
             )
