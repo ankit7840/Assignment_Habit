@@ -1,8 +1,8 @@
 
 package com.example.assignment_habit
 
-
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.animateContentSize
@@ -16,9 +16,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -38,6 +36,7 @@ import com.example.assignment_habit.Data.model.FoodItem
 import com.example.assignment_habit.ui.theme.Assignment_HabitTheme
 import com.example.assignment_habit.ui.theme.DarkRed
 import com.example.assignment_habit.ui.theme.PrimaryRed
+import kotlin.text.get
 
 class CartActivity : ComponentActivity() {
     @Suppress("DEPRECATION")
@@ -50,7 +49,11 @@ class CartActivity : ComponentActivity() {
             Assignment_HabitTheme {
                 CartScreen(
                     cartItems = cartItems,
-                    onBackClick = { finish() }
+                    onBackClick = { finish() },
+                    onCheckout = {
+                        Toast.makeText(this, "Proceeding to checkout: ₹${String.format("%.2f", it)}", Toast.LENGTH_SHORT).show()
+                        // TODO("Implement checkout logic")
+                    }
                 )
             }
         }
@@ -59,8 +62,47 @@ class CartActivity : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CartScreen(cartItems: List<FoodItem>, onBackClick: () -> Unit) {
-    val totalAmount = cartItems.sumOf { it.price }
+fun CartScreen(
+    cartItems: List<FoodItem>,
+    onBackClick: () -> Unit,
+    onCheckout: (Double) -> Unit
+) {
+    // Group identical items by ID
+    val groupedItems = remember {
+        cartItems.groupBy { it.id }
+            .mapValues { (_, items) -> Pair(items.first(), items.size) }
+    }
+
+    // Create a consolidated list with only unique items
+    val consolidatedItems = remember {
+        mutableStateListOf<FoodItem>().apply {
+            addAll(groupedItems.values.map { it.first })
+        }
+    }
+
+    // Initialize quantities map with the counts from grouped items
+    val itemQuantities = remember {
+        mutableStateMapOf<String, Int>().apply {
+            groupedItems.forEach { (id, pair) ->
+                this[id] = pair.second
+            }
+        }
+    }
+
+    // Calculate total based on price and quantity
+    val totalAmount = consolidatedItems.sumOf {
+        it.price * (itemQuantities[it.id] ?: 1)
+    }
+
+    // Callbacks for cart management
+    val onRemoveItem: (FoodItem) -> Unit = { item ->
+        consolidatedItems.remove(item)
+        itemQuantities.remove(item.id)
+    }
+
+    val onQuantityChange: (FoodItem, Int) -> Unit = { item, newQuantity ->
+        itemQuantities[item.id] = newQuantity
+    }
 
     Scaffold(
         topBar = {
@@ -98,29 +140,31 @@ fun CartScreen(cartItems: List<FoodItem>, onBackClick: () -> Unit) {
                 .padding(padding)
                 .background(Color(0xFFF8F8F8))
         ) {
-            if (cartItems.isEmpty()) {
-                EmptyCartView()
-            } else {
-                Box(modifier = Modifier.weight(1f)) {
-                    // Cart summary card at the top with animation
+            if (consolidatedItems.isEmpty()) {
+                EmptyCartView(onBrowseMenuClick = onBackClick)
+            }else {
+                Column(modifier = Modifier.weight(1f)) {
+                    // Cart summary card
                     CartSummaryCard(
-                        itemCount = cartItems.size,
+                        itemCount = itemQuantities.values.sum(),
                         totalAmount = totalAmount,
                         modifier = Modifier
                             .padding(16.dp)
                             .animateContentSize()
                     )
 
-                    // Items list with animation
                     LazyColumn(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(top = 96.dp),
+                        modifier = Modifier.fillMaxWidth(),
                         verticalArrangement = Arrangement.spacedBy(16.dp),
                         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 16.dp)
                     ) {
-                        items(cartItems) { item ->
-                            CartItemCard(item)
+                        items(consolidatedItems) { item ->
+                            CartItemCard(
+                                item = item,
+                                quantity = itemQuantities[item.id] ?: 1,
+                                onRemoveItem = onRemoveItem,
+                                onQuantityChange = onQuantityChange
+                            )
                         }
 
                         item {
@@ -129,15 +173,17 @@ fun CartScreen(cartItems: List<FoodItem>, onBackClick: () -> Unit) {
                     }
                 }
 
-                // Enhanced checkout button
-                CheckoutButton(totalAmount = totalAmount)
+                CheckoutButton(
+                    totalAmount = totalAmount,
+                    onCheckoutClick = { onCheckout(totalAmount) }
+                )
             }
         }
     }
 }
 
 @Composable
-fun EmptyCartView() {
+fun EmptyCartView(onBrowseMenuClick: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -188,7 +234,7 @@ fun EmptyCartView() {
             Spacer(modifier = Modifier.height(32.dp))
 
             Button(
-                onClick = { /* Navigate to food menu */ },
+                onClick = onBrowseMenuClick,
                 colors = ButtonDefaults.buttonColors(containerColor = PrimaryRed),
                 shape = RoundedCornerShape(12.dp),
                 modifier = Modifier
@@ -210,8 +256,14 @@ fun EmptyCartView() {
 }
 
 @Composable
-fun CartItemCard(item: FoodItem) {
+fun CartItemCard(
+    item: FoodItem,
+    quantity: Int,
+    onRemoveItem: (FoodItem) -> Unit,
+    onQuantityChange: (FoodItem, Int) -> Unit
+) {
     val showDeleteDialog = remember { mutableStateOf(false) }
+    val context = LocalContext.current
 
     Card(
         modifier = Modifier
@@ -306,13 +358,18 @@ fun CartItemCard(item: FoodItem) {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "$${String.format("%.2f", item.price)}",
+                        text = "₹${String.format("%.2f", item.price)}",
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.ExtraBold,
                         color = DarkRed
                     )
 
-                    EnhancedQuantitySelector()
+                    EnhancedQuantitySelector(
+                        initialValue = quantity,
+                        onQuantityChange = { newQuantity ->
+                            onQuantityChange(item, newQuantity)
+                        }
+                    )
                 }
             }
         }
@@ -333,7 +390,8 @@ fun CartItemCard(item: FoodItem) {
             },
             confirmButton = {
                 TextButton(onClick = {
-                    // Remove item logic here
+                    onRemoveItem(item)
+                    Toast.makeText(context, "${item.name} removed from cart", Toast.LENGTH_SHORT).show()
                     showDeleteDialog.value = false
                 }) {
                     Text(
@@ -358,8 +416,11 @@ fun CartItemCard(item: FoodItem) {
 }
 
 @Composable
-fun EnhancedQuantitySelector() {
-    val quantity = remember { mutableStateOf(1) }
+fun EnhancedQuantitySelector(
+    initialValue: Int = 1,
+    onQuantityChange: (Int) -> Unit = {}
+) {
+    var quantity by remember { mutableStateOf(initialValue) }
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -373,11 +434,14 @@ fun EnhancedQuantitySelector() {
             modifier = Modifier
                 .size(28.dp)
                 .background(
-                    if (quantity.value > 1) PrimaryRed else Color.LightGray,
+                    if (quantity > 1) PrimaryRed else Color.LightGray,
                     RoundedCornerShape(6.dp)
                 )
-                .clickable(enabled = quantity.value > 1) {
-                    if (quantity.value > 1) quantity.value--
+                .clickable(enabled = quantity > 1) {
+                    if (quantity > 1) {
+                        quantity--
+                        onQuantityChange(quantity)
+                    }
                 }
         ) {
             Text(
@@ -388,7 +452,7 @@ fun EnhancedQuantitySelector() {
         }
 
         Text(
-            text = "${quantity.value}",
+            text = "$quantity",
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(horizontal = 8.dp)
         )
@@ -398,7 +462,10 @@ fun EnhancedQuantitySelector() {
             modifier = Modifier
                 .size(28.dp)
                 .background(PrimaryRed, RoundedCornerShape(6.dp))
-                .clickable { quantity.value++ }
+                .clickable {
+                    quantity++
+                    onQuantityChange(quantity)
+                }
         ) {
             Text(
                 text = "+",
@@ -410,7 +477,10 @@ fun EnhancedQuantitySelector() {
 }
 
 @Composable
-fun CheckoutButton(totalAmount: Double) {
+fun CheckoutButton(
+    totalAmount: Double,
+    onCheckoutClick: () -> Unit = {}
+) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -423,7 +493,7 @@ fun CheckoutButton(totalAmount: Double) {
             .background(Color.White, RoundedCornerShape(16.dp))
     ) {
         Button(
-            onClick = { /* Checkout logic here */ },
+            onClick = onCheckoutClick,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp)
@@ -450,7 +520,7 @@ fun CheckoutButton(totalAmount: Double) {
                 )
 
                 Text(
-                    text = "$${String.format("%.2f", totalAmount)}",
+                    text = "₹${String.format("%.2f", totalAmount)}",
                     fontWeight = FontWeight.ExtraBold,
                     style = MaterialTheme.typography.titleMedium
                 )
@@ -510,7 +580,7 @@ fun CartSummaryCard(itemCount: Int, totalAmount: Double, modifier: Modifier = Mo
                 )
 
                 Text(
-                    text = "$${String.format("%.2f", totalAmount)}",
+                    text = "₹${String.format("%.2f", totalAmount)}",
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.ExtraBold,
                     color = DarkRed

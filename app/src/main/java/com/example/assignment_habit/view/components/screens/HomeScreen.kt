@@ -157,14 +157,12 @@ fun HomeScreen(viewModel: HomeViewModel,
             ) {
                 DiscountBanner(modifier = Modifier.padding(16.dp))
 
-                // First food section with real data
                 TriedTastedLovedSection(
                     foods = uiState.triedTastedLoved,
                     onAddClick = viewModel::addToCart,
                     modifier = Modifier.padding(vertical = 8.dp)
                 )
 
-                // Second food section with real data
                 LookingForMoreSection(
                     foods = uiState.lookingForMore,
                     onAddClick = viewModel::addToCart,
